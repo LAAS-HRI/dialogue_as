@@ -48,7 +48,7 @@ First, you must launch your dialog system with publishing string message on 'hum
 
 After that, you can run the dialog_as with the following command:
 ```
-$ rosrun dialogue_as dialog_as
+$ rosrun dialogue_as dialogue_as
 ```
 
 Now you can run the simple client presented just before:
