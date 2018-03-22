@@ -2,6 +2,8 @@
 
 The dialogue_as package is a very simple action server that subscribes to a 'human_dialogue' topic and allows you to trigger several keywords.
 
+The dialogue_as server will also send you a boolean message (always true) every time your dialog system receives a dialog and finds none of your keywords.
+
 ## Simple client
 
 A simple client who wishes to trigger on the keywords 'yes' or 'no' is the following:
@@ -46,7 +48,7 @@ int main (int argc, char **argv)
 
 First, you must launch your dialog system with publishing string message on 'human_dialogue' topic.
 
-After that, you can run the dialog_as with the following command:
+After that, you can run the dialogue_as with the following command:
 ```
 $ rosrun dialogue_as dialogue_as
 ```
