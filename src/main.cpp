@@ -2,6 +2,7 @@
 #include <actionlib/server/simple_action_server.h>
 #include <dialogue_as/dialogue_actionAction.h>
 #include "std_msgs/String.h"
+#include <iostream>
 
 class DialogueAction
 {
@@ -37,6 +38,10 @@ public:
   void goalCB()
   {
     keywords = as_.acceptNewGoal()->keywords;
+    std::cout << "receive goal for : ";
+    for(int i = 0; i < keywords.size(); i++)
+      std::cout << keywords[i] << " ";
+    std::cout << std::endl;
   }
 
   void preemptCB()
@@ -49,11 +54,19 @@ public:
   {
     if (!as_.isActive())
       return;
-      
+
     text_ = msg->data;
+    std::cout << "callback " << text_ << std::endl;
     std::string res = "";
 
     feedback_.speak = true;
+
+    for(int i = 0; i < keywords.size(); i++)
+    	if(text_.find(keywords[i]) != std::string::npos)
+    	{
+    		res = keywords[i];
+    		break;
+    	}
 
     if(res != "")
     {
