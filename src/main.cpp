@@ -58,11 +58,12 @@ public:
     text_ = msg->data;
     std::cout << "callback " << text_ << std::endl;
     std::string res = "";
+    text_ = " " + text_ + " ";
 
     feedback_.speak = true;
 
     for(int i = 0; i < keywords.size(); i++)
-    	if(text_.find(keywords[i]) != std::string::npos)
+    	if(text_.find(" " + keywords[i] + " ") != std::string::npos)
     	{
     		res = keywords[i];
     		break;
