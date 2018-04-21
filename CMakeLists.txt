@@ -61,7 +61,9 @@ include_directories(
 )
 
 add_executable(dialogue_as src/main.cpp)
+add_dependencies(dialogue_as dialogue_as_gencpp)
 target_link_libraries(dialogue_as ${catkin_LIBRARIES})
 
 add_executable(dialogue_as_tester src/test.cpp)
+add_dependencies(dialogue_as_tester dialogue_as_gencpp)
 target_link_libraries(dialogue_as_tester ${catkin_LIBRARIES})
