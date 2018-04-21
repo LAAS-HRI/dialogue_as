@@ -55,5 +55,5 @@ $ rosrun dialogue_as dialogue_as
 
 Now you can run the simple client presented just before:
 ```
-$ rosrun dialogue_as tester
+$ rosrun dialogue_as dialogue_as_tester
 ```

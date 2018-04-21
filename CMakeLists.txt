@@ -63,5 +63,5 @@ include_directories(
 add_executable(dialogue_as src/main.cpp)
 target_link_libraries(dialogue_as ${catkin_LIBRARIES})
 
-add_executable(tester src/test.cpp)
-target_link_libraries(tester ${catkin_LIBRARIES})
+add_executable(dialogue_as_tester src/test.cpp)
+target_link_libraries(dialogue_as_tester ${catkin_LIBRARIES})
