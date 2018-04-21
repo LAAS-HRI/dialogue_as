@@ -16,7 +16,12 @@ protected:
 
   ros::Subscriber sub_;
   std::string text_;
-  std::vector<std::string> keywords;
+
+  std::vector<std::string> verbs;
+  std::vector<std::string> subjects;
+
+  bool enable_only_verb;
+  bool enable_only_subject;
 
 public:
 
@@ -37,11 +42,21 @@ public:
 
   void goalCB()
   {
-    keywords = as_.acceptNewGoal()->keywords;
-    std::cout << "receive goal for : ";
-    for(int i = 0; i < keywords.size(); i++)
-      std::cout << keywords[i] << " ";
+    std::cout << "Receive goal for : " << std::endl;
+
+    boost::shared_ptr<const dialogue_as::dialogue_actionGoal> goal = as_.acceptNewGoal();
+    verbs = goal->verbs;
+    for(int i = 0; i < verbs.size(); i++)
+      std::cout << verbs[i] << " ";
     std::cout << std::endl;
+
+    subjects = goal->subjects;
+    for(int i = 0; i < subjects.size(); i++)
+      std::cout << subjects[i] << " ";
+    std::cout << std::endl;
+
+    enable_only_verb = goal->enable_only_verb;
+    enable_only_subject = goal->enable_only_subject;
   }
 
   void preemptCB()
@@ -57,21 +72,38 @@ public:
 
     text_ = msg->data;
     std::cout << "callback " << text_ << std::endl;
-    std::string res = "";
+    std::string res_verb = "";
+    std::string res_subject = "";
     text_ = " " + text_ + " ";
 
-    feedback_.speak = true;
-
-    for(int i = 0; i < keywords.size(); i++)
-    	if(text_.find(" " + keywords[i] + " ") != std::string::npos)
+    for(int i = 0; i < verbs.size(); i++)
+    	if(text_.find(" " + verbs[i] + " ") != std::string::npos)
     	{
-    		res = keywords[i];
+    		res_verb = verbs[i];
+        feedback_.verb = res_verb;
     		break;
     	}
 
-    if(res != "")
+    for(int i = 0; i < subjects.size(); i++)
+    	if(text_.find(" " + subjects[i] + " ") != std::string::npos)
+    	{
+    		res_subject = subjects[i];
+        feedback_.subject = res_subject;
+    		break;
+    	}
+
+    bool succed = false;
+    if((res_verb != "") && (res_subject != ""))
+      succed = true;
+    else if((res_verb == "") && (res_subject != "") && enable_only_subject)
+      succed = true;
+    else if((res_verb != "") && (res_subject == "") && enable_only_verb)
+      succed = true;
+
+    if(succed)
     {
-      result_.word = res;
+      result_.verb = res_verb;
+      result_.subject = res_subject;
       ROS_INFO("dialogue_as: Succeeded");
       as_.setSucceeded(result_);
     }

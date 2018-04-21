@@ -1,8 +1,13 @@
 #goal definition
-string[] keywords
+string[] verbs
+string[] subjects
+bool enable_only_verb
+bool enable_only_subject
 ---
 #result definition
-string word
+string verb
+string subject
 ---
 #feedback
-bool speak
+string verb
+string subject

@@ -4,7 +4,7 @@ The dialogue_as package is a very simple action server that subscribes to a 'hum
 
 The dialogue_as server will also send you a boolean message (always true) every time your dialog system receives a dialog and finds none of your keywords.
 
-## Simple client
+# Simple keywords client
 
 A simple client who wishes to trigger on the keywords 'yes' or 'no' is the following:
 
@@ -26,8 +26,9 @@ int main (int argc, char **argv)
 
   ROS_INFO("Action server started, sending goal.");
   dialogue_as::dialogue_actionGoal goal;
-  goal.keywords.push_back("yes");
-  goal.keywords.push_back("no");
+  goal.subjects.push_back("yes");
+  goal.subjects.push_back("no");
+  goal.enable_only_subject = true;
   ac.sendGoal(goal);
 
   bool finished_before_timeout = ac.waitForResult(ros::Duration(240.0));
@@ -42,6 +43,7 @@ int main (int argc, char **argv)
 
   return 0;
 }
+
 ```
 
 ## Test it
@@ -55,5 +57,5 @@ $ rosrun dialogue_as dialogue_as
 
 Now you can run the simple client presented just before:
 ```
-$ rosrun dialogue_as dialogue_as_tester
+$ rosrun dialogue_as dialogue_as_tester_yes_no
 ```

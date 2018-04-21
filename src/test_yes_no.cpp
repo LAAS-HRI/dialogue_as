@@ -15,8 +15,9 @@ int main (int argc, char **argv)
 
   ROS_INFO("Action server started, sending goal.");
   dialogue_as::dialogue_actionGoal goal;
-  goal.keywords.push_back("yes");
-  goal.keywords.push_back("no");
+  goal.subjects.push_back("yes");
+  goal.subjects.push_back("no");
+  goal.enable_only_subject = true;
   ac.sendGoal(goal);
 
   bool finished_before_timeout = ac.waitForResult(ros::Duration(240.0));
