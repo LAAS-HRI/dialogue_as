@@ -67,3 +67,7 @@ target_link_libraries(dialogue_as ${catkin_LIBRARIES})
 add_executable(dialogue_as_tester_yes_no src/test_yes_no.cpp)
 add_dependencies(dialogue_as_tester_yes_no dialogue_as_gencpp)
 target_link_libraries(dialogue_as_tester_yes_no ${catkin_LIBRARIES})
+
+add_executable(dialogue_as_tester_verb_subject src/test_verb_subject.cpp)
+add_dependencies(dialogue_as_tester_verb_subject dialogue_as_gencpp)
+target_link_libraries(dialogue_as_tester_verb_subject ${catkin_LIBRARIES})
