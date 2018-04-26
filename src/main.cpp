@@ -48,12 +48,18 @@ public:
     boost::shared_ptr<const dialogue_as::dialogue_actionGoal> goal = as_.acceptNewGoal();
     verbs = goal->verbs;
     for(int i = 0; i < verbs.size(); i++)
+    {
       std::cout << verbs[i] << " ";
+      std::transform(verbs[i].begin(), verbs[i].end(), verbs[i].begin(), ::tolower);
+    }
     std::cout << std::endl;
 
     subjects = goal->subjects;
     for(int i = 0; i < subjects.size(); i++)
+    {
       std::cout << subjects[i] << " ";
+      std::transform(subjects[i].begin(), subjects[i].end(), subjects[i].begin(), ::tolower);
+    }
     std::cout << std::endl;
 
     enable_only_verb = goal->enable_only_verb;
