@@ -3,6 +3,7 @@
 #include <dialogue_as/dialogue_actionAction.h>
 #include "std_msgs/String.h"
 #include <iostream>
+#include <algorithm>
 
 class DialogueAction
 {
@@ -71,6 +72,7 @@ public:
       return;
 
     text_ = msg->data;
+    std::transform(text_.begin(), text_.end(), text_.begin(), ::tolower);
     std::cout << "callback " << text_ << std::endl;
     std::string res_verb = "";
     std::string res_subject = "";
